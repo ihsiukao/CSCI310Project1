@@ -25,8 +25,7 @@ public class FlightMap {
 					temp.addFlight(words[1], Integer.parseInt(words[2]));
 					airMap.remove(words[0]);
 				}
-				else 
-				{
+				else {
 					temp = new Airport(words[0]);
 				}
 				airMap.put(words[0], temp);
@@ -56,18 +55,7 @@ public class FlightMap {
 			}
 		}
 	}
-	public void addAirport(String key, Airport air) {
-		airMap.put(key, air);
-	}
-	public boolean airExisted(String key) {
-		if(airMap.containsKey(key)) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	public Airport getAir(String key) {
-		return airMap.get(key);
+	public void findRoutes(String outputName) {
+		
 	}
 }
