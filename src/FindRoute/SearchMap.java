@@ -9,13 +9,17 @@ public class SearchMap {
 		FlightMap map = new FlightMap();
 		FileReader fr = null;
 		BufferedReader br = null;
-		String originAir;
+		FileWriter fw = null;
+		PrintWriter pw = null;
+		String originAir = null;
+		List<String> airports = new LinkedList<String>();
 		try {
 			fr = new FileReader("inputfile.txt");
 			br = new BufferedReader(fr);
 			String line = br.readLine();
 			originAir = line;
 			map.addAir(originAir);
+			airports.add(originAir);
 			line = br.readLine();
 			while(line != null) {
 				String[] words = line.split("\\s+");
@@ -25,9 +29,11 @@ public class SearchMap {
 				else {
 					map.addAir(words[0]);
 					map.addFlight(words[0], words[1], Integer.parseInt(words[2]));
+					airports.add(words[0]);
 				}
 				if(!map.containsAir(words[1])) {
 					map.addAir(words[1]);
+					airports.add(words[1]);
 				}
 				line = br.readLine();
 			}
@@ -51,8 +57,54 @@ public class SearchMap {
 				}
 			}
 		}
+		try {
+			fw = new FileWriter("outputfile.txt");
+			pw = new PrintWriter(fw);
+			String line;
+			line = "Destination Flight Route from " + originAir + " ";
+			for(int i = 0; i < (airports.size()*2) - 19; i++) {
+				line = line + " ";
+			}
+			line = line + "Total Cost  ";
+			pw.println(line);
+			pw.flush();
+			for(Iterator<String> it = airports.iterator(); it.hasNext();) {
+				String endAir = it.next();
+				if(originAir != endAir) {
+					List<String> airRoutes = new LinkedList<String>();
+					List<String> visitedAir = new LinkedList<String>();
+					int cost[] = new int[1];
+					cost[0] = 0;
+					int result = map.findRoutes(cost, originAir, endAir, airRoutes, visitedAir);
+					if(result == 1) {
+						line = endAir + "           ";
+						for(int i = 0; i < airRoutes.size(); i++) {
+							line = line + airRoutes.get(i) + ",";
+						}
+						for(int i = 0; i < (airports.size() - airRoutes.size()); i++) {
+							line = line + "  ";
+						}
+						line = line + "  $" + Integer.toString(cost[0]);
+						pw.println(line);
+						pw.flush();
+					}
+				}
+			}
+		} catch (IOException ioe) {
+			System.out.println(ioe.getMessage());
+		} finally {
+			if(pw != null) {
+				pw.close();
+			}
+			if(fw != null) {
+				try {
+					fw.close();
+				} catch (IOException ioe) {
+					System.out.println(ioe.getMessage());
+				}
+			}
+		}
 		
-		map.writeFile("outputfile.txt");
 		return;
 	}
 
