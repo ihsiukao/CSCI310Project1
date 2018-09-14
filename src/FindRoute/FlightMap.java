@@ -25,6 +25,12 @@ public class FlightMap {
 	}
 	public int findRoutes(int cost[], String startAir, String endAir, List<String> routes, List<String> visited) {
 		visited.add(startAir);
+		if(!airMap.containsKey(startAir)) {
+			return 0;
+		}
+		if(!airMap.containsKey(endAir)) {
+			return 0;
+		}
 		if(startAir == endAir) {
 			routes.add(startAir);
 			return 1;
