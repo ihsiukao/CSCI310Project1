@@ -4,16 +4,14 @@ import java.util.*;
 
 public class FlightMap {
 	private Map<String, Airport> airMap;
-	private String originAir;
-	private FileReader fr;
-	private BufferedReader br;
+	private String originAir = "P";
 	private FileWriter fw;
 	private PrintWriter pw;
 	
-	public FlightMap(String inputName) {
+	public FlightMap() {
 		airMap = new HashMap<String, Airport>();
-		constructMap(inputName);
 	}
+	/*
 	private void constructMap(String inputName) {
 		try {
 			fr = new FileReader(inputName);
@@ -62,6 +60,19 @@ public class FlightMap {
 				}
 			}
 		}
+	}
+	*/
+	public void addAir(String airName) {
+		Airport temp = new Airport(airName);
+		airMap.put(airName, temp);
+	}
+	public boolean containsAir(String airName) {
+		return airMap.containsKey(airName);
+	}
+	public void addFlight(String startAir, String endAir, int cost) {
+		Airport temp = airMap.get(startAir);
+		temp.addFlight(endAir, cost);
+		airMap.put(startAir, temp);
 	}
 	public void writeFile(String outputName) {
 		try {
