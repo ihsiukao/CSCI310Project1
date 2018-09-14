@@ -16,61 +16,13 @@ public class FlightMap {
 		return airMap.containsKey(airName);
 	}
 	public void addFlight(String startAir, String endAir, int cost) {
+		if(!airMap.containsKey(startAir)) {
+			return;
+		}
 		Airport temp = airMap.get(startAir);
 		temp.addFlight(endAir, cost);
 		airMap.put(startAir, temp);
 	}
-	/*
-	public int something(String outputName) {
-		try {
-			fw = new FileWriter(outputName);
-			pw = new PrintWriter(fw);
-			String line;
-			line = "Destination Flight Route from " + originAir + " ";
-			for(int i = 0; i < (airMap.size()*2) - 19; i++) {
-				line = line + " ";
-			}
-			line = line + "Total Cost  ";
-			pw.println(line);
-			pw.flush();
-			for(Map.Entry<String, Airport> pair : airMap.entrySet()) {
-				if(pair.getKey() != originAir) {
-					List<String> airRoutes = new LinkedList<String>();
-					List<String> visitedAir = new LinkedList<String>();
-					int cost[] = new int[1];
-					cost[0] = 0;
-					int result = findRoutes(cost, originAir, pair.getKey(), airRoutes, visitedAir);
-					if(result == 1) {
-						line = pair.getKey() + "           ";
-						for(int i = 0; i < airRoutes.size(); i++) {
-							line = line + airRoutes.get(i) + ",";
-						}
-						for(int i = 0; i < (airMap.size() - airRoutes.size()); i++) {
-							line = line + "  ";
-						}
-						line = line + "  $" + Integer.toString(cost[0]);
-						pw.println(line);
-						pw.flush();
-					}
-				}
-			}
-		} catch (IOException ioe) {
-			System.out.println(ioe.getMessage());
-		} finally {
-			if(pw != null) {
-				pw.close();
-			}
-			if(fw != null) {
-				try {
-					fw.close();
-				} catch (IOException ioe) {
-					System.out.println(ioe.getMessage());
-				}
-			}
-		}
-	}
-	*/
-	
 	public int findRoutes(int cost[], String startAir, String endAir, List<String> routes, List<String> visited) {
 		visited.add(startAir);
 		if(startAir == endAir) {
