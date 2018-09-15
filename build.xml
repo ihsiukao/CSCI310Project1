@@ -7,15 +7,21 @@
 	<property name = "build.dir" location = "bin" />
 	<property name = "doc.dir" location = "doc" />
 	<property name = "dist.dir" location = "dist" />
-	
+	<property name = "report.dir" location = "report" />
+	<path id = "junitclasspath">
+	    <fileset dir = "lib"/>
+	    <pathelement path = "${build.dir}"/>
+	</path>
+
 	<target name = "init" description = "setup project directories">
 		<mkdir dir = "${build.dir}" />
 		<mkdir dir = "${doc.dir}" />
 		<mkdir dir = "${dist.dir}/lib" />
+		<mkdir dir = "${report.dir}" />
  	</target>
  	
  	<target name = "compile" depends = "init" description = "compile java sources" >
- 		<javac srcdir = "${source.dir}" destdir = "${build.dir}" />
+ 		<javac srcdir = "${source.dir}" destdir = "${build.dir}" classpath = "junitclasspath" />
  	</target>
  	
  	<target name = "doc" depends = "init" description = "generate documentation">
@@ -31,4 +37,19 @@
  		<delete dir = "${doc.dir}" />
  		<delete dir = "${dist.dir}" />
  	</target>
+	
+	<target name = "junit" depends = "compile">
+		<junit printsummary = "true" haltonfailure = "false">
+			<classpath>
+				<path refid = "junitclasspath" />
+			</classpath>
+			<test name = "FindRoute.TestAirport" haltonfailure = "no" todir = "${report.dir}" outfile = "AirportResult">
+				<formatter type = "xml" />
+			</test>
+			<test name = "FindRoute.TestFlightMap" haltonfailure = "no" todir = "${report.dir}" outfile = "AirportResult">
+				<formatter type = "xml" />
+			</test>
+		</junit>		
+	</target>
+	
 </project>
