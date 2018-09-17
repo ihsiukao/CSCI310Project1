@@ -9,7 +9,9 @@
 	<property name = "dist.dir" location = "dist" />
 	<property name = "report.dir" location = "report" />
 	<path id = "junitclasspath">
-	    <fileset dir = "lib"/>
+	    <fileset dir = "lib">
+	    	<include name = "**/*.jar" />
+	    </fileset>	
 	    <pathelement path = "${build.dir}"/>
 	</path>
 
@@ -21,7 +23,11 @@
  	</target>
  	
  	<target name = "compile" depends = "init" description = "compile java sources" >
- 		<javac srcdir = "${source.dir}" destdir = "${build.dir}" classpath = "junitclasspath" includeantruntime = "false" />
+ 		<javac srcdir = "${source.dir}" destdir = "${build.dir}" includeantruntime = "false" >
+ 			<classpath>
+ 				<path refid = "junitclasspath" />
+ 			</classpath>
+ 		</javac>
  	</target>
  	
  	<target name = "doc" depends = "init" description = "generate documentation" >
@@ -34,16 +40,19 @@
  	</target>
  	
  	<target name = "dist" depends = "compile" description = "generat jar">
- 		<jar destfile = "${dist.dir}/lib/Project1.jar" basedir = "${build.dir}" />
+ 		<jar destfile = "${dist.dir}/lib/Project1.jar" basedir = "${build.dir}" >
+ 			<exclude name = "**/Test*.java" />
+ 		</jar>
  	</target>
  	
  	<target name = "clean" description = "clean workspace">
  		<delete dir = "${build.dir}" />
  		<delete dir = "${doc.dir}" />
  		<delete dir = "${dist.dir}" />
+ 		<delete dir = "${report.dir}" />
  	</target>
 	
-	<target name = "junit" depends = "compile">
+	<target name = "test" depends = "compile">
 		<junit printsummary = "true" haltonfailure = "false">
 			<classpath>
 				<path refid = "junitclasspath" />
@@ -51,7 +60,7 @@
 			<test name = "FindRoute.TestAirport" haltonfailure = "no" todir = "${report.dir}" outfile = "AirportResult">
 				<formatter type = "xml" />
 			</test>
-			<test name = "FindRoute.TestFlightMap" haltonfailure = "no" todir = "${report.dir}" outfile = "AirportResult">
+			<test name = "FindRoute.TestFlightMap" haltonfailure = "no" todir = "${report.dir}" outfile = "FlightMapResult">
 				<formatter type = "xml" />
 			</test>
 		</junit>		
