@@ -4,8 +4,8 @@ import java.util.*;
 
 public class SearchMap {
 	public static void main(String[] args) {
-		//String inputName = args[0];
-		//String outputName = args[1];
+		String inputName = args[0];
+		String outputName = args[1];
 		FlightMap map = new FlightMap();
 		FileReader fr = null;
 		BufferedReader br = null;
@@ -14,7 +14,7 @@ public class SearchMap {
 		String originAir = null;
 		List<String> airports = new LinkedList<String>();
 		try {
-			fr = new FileReader("inputfile.txt");
+			fr = new FileReader(inputName);
 			br = new BufferedReader(fr);
 			String line = br.readLine();
 			originAir = line;
@@ -58,7 +58,7 @@ public class SearchMap {
 			}
 		}
 		try {
-			fw = new FileWriter("outputfile.txt");
+			fw = new FileWriter(outputName);
 			pw = new PrintWriter(fw);
 			String line;
 			line = "Destination Flight Route from " + originAir + " ";
@@ -104,7 +104,6 @@ public class SearchMap {
 				}
 			}
 		}
-		
 		return;
 	}
 

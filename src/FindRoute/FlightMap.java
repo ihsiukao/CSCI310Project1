@@ -15,6 +15,9 @@ public class FlightMap {
 	public boolean containsAir(String airName) {
 		return airMap.containsKey(airName);
 	}
+	public Airport getAir(String name) {
+		return airMap.get(name);
+	}
 	public void addFlight(String startAir, String endAir, int cost) {
 		if(!airMap.containsKey(startAir)) {
 			return;
@@ -31,7 +34,7 @@ public class FlightMap {
 		if(!airMap.containsKey(endAir)) {
 			return 0;
 		}
-		if(startAir == endAir) {
+		if(startAir.equals(endAir)) {
 			routes.add(startAir);
 			return 1;
 		}
