@@ -21,11 +21,16 @@
  	</target>
  	
  	<target name = "compile" depends = "init" description = "compile java sources" >
- 		<javac srcdir = "${source.dir}" destdir = "${build.dir}" classpath = "junitclasspath" />
+ 		<javac srcdir = "${source.dir}" destdir = "${build.dir}" classpath = "junitclasspath" includeantruntime = "false" />
  	</target>
  	
- 	<target name = "doc" depends = "init" description = "generate documentation">
- 		<javadoc sourcepath = "${source.dir}" destdir = "${doc.dir}" />
+ 	<target name = "doc" depends = "init" description = "generate documentation" >
+ 		<javadoc destdir = "${doc.dir}">
+ 			<fileset dir = "${source.dir}" defaultexcludes = "yes">
+ 				<exclude name = "**/Test*.java" />
+ 				<include name = "**/*.java" />
+ 			</fileset>
+ 		</javadoc>	
  	</target>
  	
  	<target name = "dist" depends = "compile" description = "generat jar">
