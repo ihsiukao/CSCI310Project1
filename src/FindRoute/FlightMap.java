@@ -19,6 +19,17 @@ public class FlightMap {
 	public boolean containsAir(String airName) {
 		return airMap.containsKey(airName);
 	}
+	//take a string as input and check whether the  map container contains the corresponding Airport object
+	//if yes, return that Airport object
+	//if not, return null
+	public Airport getAir(String airName) {
+		if(!airMap.containsKey(airName)) {
+			return null;
+		}
+		else {
+			return airMap.get(airName);
+		}
+	}
 	//take a string as input, check whether the map contains a corresponding Airport object
 	//if yes, retrieve the object and add a flight
 	//if not, do nothing 

@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -181,5 +182,42 @@ public class TestFlightMap {
 		int result = tester.findRoutes(cost, "P", "M", routes, visited);
 		assertEquals(0, result);
 	}
+	
+	@Test
+	public void testGetAir1() {
+		tester = new FlightMap();
+		tester.addAir("P");
+		tester.addFlight("P", "C", 300);
+		Airport temp = tester.getAir("P");
+		int flag = 0;
+		if(temp != null) {
+			flag = 1;
+		}
+		assertEquals(1, flag);
+	}
+	@Test
+	public void testGetAir2() {
+		tester = new FlightMap();
+		tester.addAir("P");
+		tester.addFlight("P", "C", 300);
+		Airport temp = tester.getAir("H");
+		int flag = 0;
+		if(temp != null) {
+			flag = 1;
+		}
+		assertEquals(0, flag);
+	}
+	@Test
+	public void testGetAir3() {
+		tester = new FlightMap();
+		tester.addAir("P");
+		tester.addFlight("P", "C", 300);
+		tester.addFlight("P", "V", 300);
+		tester.addFlight("P", "K", 300);
+		Airport temp = tester.getAir("P");
+		Map<String, Integer> map = temp.getFlight();
+		assertEquals(3, map.size());
+	}
+
 
 }

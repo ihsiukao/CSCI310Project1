@@ -59,6 +59,19 @@ public class SearchMap {
 				}
 			}
 		}
+		//display each node and its adjancent nodes with cost
+		for(int i = 0; i < airports.size(); i++)
+		{
+			System.out.println("Airport: " + airports.get(i));
+			Airport temp = map.getAir(airports.get(i));
+			if(temp != null) {
+				Map<String, Integer> flightMap = temp.getFlight();
+				for(Map.Entry<String, Integer> flightPair : flightMap.entrySet()) {
+					System.out.println("Connected with: " + flightPair.getKey() + ", with cost: $" + flightPair.getValue());
+				}
+			}
+			System.out.println();
+		}
 		//find route from starting point to each node and write to output file
 		try {
 			fw = new FileWriter(outputName);
