@@ -3,6 +3,7 @@ import java.io.*;
 import java.util.*;
 
 public class SearchMap {
+	//main function of client code
 	public static void main(String[] args) {
 		String inputName = args[0];
 		String outputName = args[1];
@@ -13,6 +14,7 @@ public class SearchMap {
 		PrintWriter pw = null;
 		String originAir = null;
 		List<String> airports = new LinkedList<String>();
+		//read input file and parse into graph
 		try {
 			fr = new FileReader(inputName);
 			br = new BufferedReader(fr);
@@ -57,10 +59,12 @@ public class SearchMap {
 				}
 			}
 		}
+		//find route from starting point to each node and write to output file
 		try {
 			fw = new FileWriter(outputName);
 			pw = new PrintWriter(fw);
 			String line;
+			//formatting output
 			line = "Destination Flight Route from " + originAir + " ";
 			for(int i = 0; i < (airports.size()*2) - 19; i++) {
 				line = line + " ";
@@ -76,6 +80,7 @@ public class SearchMap {
 					int cost[] = new int[1];
 					cost[0] = 0;
 					int result = map.findRoutes(cost, originAir, endAir, airRoutes, visitedAir);
+					//formatting output
 					if(result == 1) {
 						line = endAir + "           ";
 						for(int i = 0; i < airRoutes.size(); i++) {
