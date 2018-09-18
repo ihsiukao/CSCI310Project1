@@ -40,7 +40,7 @@
  	</target>
  	
  	<target name = "dist" depends = "compile" description = "generat jar">
- 		<jar destfile = "${dist.dir}/lib/Project1.jar" basedir = "${build.dir}" >
+ 		<jar destfile = "${dist.dir}/lib/SearchMap.jar" basedir = "${build.dir}" >
  			<exclude name = "**/Test*.java" />
  		</jar>
  	</target>
