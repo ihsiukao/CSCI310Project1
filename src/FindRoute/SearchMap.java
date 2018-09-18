@@ -66,6 +66,9 @@ public class SearchMap {
 			Airport temp = map.getAir(airports.get(i));
 			if(temp != null) {
 				Map<String, Integer> flightMap = temp.getFlight();
+				if(flightMap.size() == 0) {
+					System.out.println("No flight to other airport");
+				}
 				for(Map.Entry<String, Integer> flightPair : flightMap.entrySet()) {
 					System.out.println("Connected with: " + flightPair.getKey() + ", with cost: $" + flightPair.getValue());
 				}
