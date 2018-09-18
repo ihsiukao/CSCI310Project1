@@ -59,7 +59,7 @@ public class SearchMap {
 				}
 			}
 		}
-		//display each node and its adjancent nodes with cost
+		//display each node and its adjacent nodes with cost
 		for(int i = 0; i < airports.size(); i++)
 		{
 			System.out.println("Airport: " + airports.get(i));
